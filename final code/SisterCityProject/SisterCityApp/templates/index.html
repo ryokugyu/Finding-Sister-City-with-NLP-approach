@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Find My Sister City</title>
+
+    <!-- JQuery -->
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+
+    <!-- Bootstrap core CSS -->
+    <link href="static/index-files/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="static/index-files/css/scrolling-nav.css" rel="stylesheet">
+    <link href="static/shared/styles.css" type="text/css" rel="stylesheet">
+
+    <!-- Google Fonts: Arvo -->
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Arvo" />
+	
+  </head>
+
+  <body id="page-top">
+<form action="getSisterCities/" method="post">
+{% csrf_token %}
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+      <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">Find My Sister City</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#city">Enter City</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#weights">Enter Weights</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#submit">Submit</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- <div id="hero"></div> -->
+
+    <header class="text-white">
+      <div class="container text-center">        
+        <h1 class="text-uppercase spaced">Find My Sister City</h1>
+        <p class="lead">Find your sister city today</p>
+      </div>
+    </header>
+
+    <form>
+      <!-- User city input section -->
+      <section id="city">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-8 mx-auto">
+              <h2>Enter City Name</h2>
+              <p class="lead">Enter the name of your city. We'll search for it in our database.</p>
+              <div class="input-group input-group-lg">
+                <input id="city-input" name="cityinput" type="text" class="form-control" placeholder="Search for..." required/>
+                <!-- <div class="input-group-append">
+                    <button class="btn btn-large btn-secondary" type="button">Search</button>
+                </div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+  
+      <!-- User defined weighting section -->
+      <section id="weights" class="bg-light">
+        <div class="container">
+          <div class="row">
+            <div id="weight-section" class="col-lg-8 mx-auto container-fluid">
+              <h2>Enter Weights</h2>
+              <p class="lead">Use the sliders to enter the weights for each category. We'll use these weights to find your sister city.</p>
+              <p class="lead"><span class="text-success"><strong>Green</strong></span> is similar and <span class="text-danger"><strong>Red</strong></span> is different.</p>
+              <div class="row">
+                <div class="well col-lg-6 slide-container">
+                  <p class="slider-label lead text-center">Climate: <span  name="climate-value" id="climate-value">50</span></p>
+				  <input type="hidden" value="50" name="climate-value2" id="climate-value2" />
+                </div>
+                <div class="well col-lg-6 slide-container">
+                  <input id="climate-slider" type="range" min="0" max="100" value="50" class="slider" >
+                </div>
+  
+             
+                
+                <div class="well col-lg-6 slide-container">
+                  <p class="slider-label lead text-center">Demographics: <span name="demogwgt" id="demographics-value">50</span></p>
+				  <input type="hidden" value="50" name="demographics-value2" id="demographics-value2" />
+                </div>
+                <div class="well col-lg-6 slide-container">
+                  <input id="demographics-slider" type="range" min="0" max="100" value="50" class="slider">
+                </div>
+  
+                <div class="well col-lg-6 slide-container">
+                  <p class="slider-label lead text-center">Economy: <span id="economy-value">50</span></p>
+				  <input type="hidden" value="50" name="economy-value2" id="economy-value2" />
+                </div>
+                <div class="well col-lg-6 slide-container">
+                  <input id="economy-slider" type="range" min="0" max="100" value="50" class="slider">
+                </div>
+  
+                <div class="well col-lg-6 slide-container">
+                  <p class="slider-label lead text-center">Politics: <span id="politics-value">50</span></p>
+				  <input type="hidden" value="50" name="politics-value2" id="politics-value2" />
+                </div>
+                <div class="well col-lg-6 slide-container">
+                  <input id="politics-slider" type="range" min="0" max="100" value="50" class="slider">
+                </div>
+  
+                <div class="well col-lg-6 slide-container">
+                  <p class="slider-label lead text-center">Proximity: <span id="proximity-value">50</span></p>
+				  <input type="hidden" value="50" name="proximity-value2" id="proximity-value2" />
+
+                </div>
+                <div class="well col-lg-6 slide-container">
+                  <input id="proximity-slider" type="range" min="0" max="100" value="50" class="slider">
+                </div>
+              </div>
+              <!-- <div class="well slide-container">
+                <section class="slider-label"></section>
+                <div class="slider"></div>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </section>
+  
+      <section id="submit">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-8 mx-auto container-fluid">
+              <h2>All Set?</h2>
+              <p class="lead">Hit the button below to find your sister city.</p>
+              <div class="row">
+                <button id="submit-button" class="btn btn-large btn-secondary col-lg-12" type="submit">GO</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </form>
+
+    <!-- Footer -->
+    <footer class="py-5">
+      <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; Find My Sister City 2018</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="static/index-files/vendor/jquery/jquery.min.js"></script>
+    <script src="static/index-files/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!-- <script src="index-files/vendor/jquery-easing/jquery.easing.min.js"></script> -->
+    
+    <!-- <script data-main="index-files/js/form-control" src="index-files/js/require.js"></script> -->
+    
+
+    <!-- Custom JavaScript for this theme -->
+    <script src="static/index-files/js/scrolling-nav.js"></script>
+    <script src="static/index-files/js/form-control.js"></script>
+</form>
+  </body>
+
+</html>

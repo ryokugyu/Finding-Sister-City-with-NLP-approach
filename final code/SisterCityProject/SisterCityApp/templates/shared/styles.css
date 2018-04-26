@@ -1,0 +1,84 @@
+/*!
+ * Start Bootstrap - Scrolling Nav (https://startbootstrap.com/template-overviews/scrolling-nav)
+ * Copyright 2013-2017 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-scrolling-nav/blob/master/LICENSE)
+ */
+
+.slide-container {
+  margin-bottom: .25em;
+  padding-left: 0;
+  padding-right: 0;
+  height: 100px;
+}
+
+ /* The slider itself */
+.slider {
+  -webkit-appearance: none;  /* Override default CSS styles */
+  appearance: none;
+  width: 100%; /* Full-width */
+  height: 100%; /* Specified height */
+  background: #d3d3d3; /* Grey background */
+  outline: none; /* Remove outline */
+  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+  -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+  transition: opacity .2s;
+  background-image: url("../_images/slider.png");
+  background-size: cover;
+}
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */ 
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  width: 25px; /* Set a specific slider handle width */
+  height: 100px; /* Slider handle height */
+  background: rgba(255,255,255,.5);
+  cursor: pointer; /* Cursor on hover */
+}
+
+/* Mouse-over effects */
+.slider:hover {
+  opacity: 1; /* Fully shown on mouse-over */
+}
+
+.slider-label {
+  line-height: 100px; /*Hacky way to middle-align text*/
+  font-size: 2em;
+}
+
+nav {
+  background-color: #1a1a1a !important;
+}
+
+footer {
+  background-color: #1a1a1a !important;
+}
+
+.well {
+  background-color: rgba(0,0,0,.05);
+}
+
+.spaced {
+  letter-spacing: .25em;
+}
+
+.btn {
+  color: #fff;
+  background-color: #333;
+  border-color: #555;
+}
+
+.btn:focus {
+  box-shadow: 0 0 0 0.2rem rgba(100, 100, 100, .5);
+}
+
+.btn:hover {
+  border-color: #555;
+  background-color: #555;
+}
+
+.btn:active {
+  border-color: #555 !important;
+}
+
+

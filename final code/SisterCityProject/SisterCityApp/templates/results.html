@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+{% load static %}
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Find My Sister City - Results</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static "results-files/vendor/bootstrap/css/bootstrap.min.css" %}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{% static "results-files/css/1-col-portfolio.css" %}" rel="stylesheet">
+    <link href="{% static "shared/styles.css" %}" type="text/css" rel="stylesheet">
+
+    <!-- Google Fonts: Arvo -->
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Arvo" />
+ 
+  </head>
+
+  <body>
+  <div id="page">
+
+<form id="actionForm" action="getSpecificCity/" method="post">
+{% csrf_token %}
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">Find My Sister City</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="index.html">Home
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+
+      <!-- Page Heading -->
+      <h1 class="my-4">Results - 
+        <small>Your Sister Cities in Order of Match Scores</small>
+      </h1>
+
+      <!-- Refine Search -->
+      <form>
+        <div id="city-input" class="input-group input-group-lg">
+          <input type="text"  name="searchQuery" class="form-control" placeholder="Refine search - e.g. 'best coffee'" required/>
+          <div class="input-group-append">
+            <button class="btn btn-large btn-secondary" type="submit" id="submit-button2">Go</button>
+          </div>
+        </div>
+      </form>
+
+
+      <hr>
+      {% for element in matchedCities%}
+     
+      <div class="col-md-12 col-lg-12">
+          {% if forloop.counter == 2 %}
+          <h2> <span style="color:rgb(69, 23, 235);font-weight:bold">Sister Cities :</span></h2>
+          {% endif %} 
+          {% if forloop.counter == 1 %}
+          <h2 style="text-align:center"> <span style="color:rgb(69, 23, 235);font-weight:bold">Current City :</span> <span style="color:rgb(201, 25, 25);font-weight:bold">{{element.cityname}}</span></h3>
+            {% else %}
+            <h2 style="text-align:center;color:blue">{{element.cityname}}</h3>
+            {% endif %} 
+
+      <div class="row">
+          <h4>Statistics by category:</h4>
+        </div>
+        <hr>
+      <!-- City One -->
+      <div class="row">
+
+
+        <div class="col-md-12 col-lg-4">
+          <button type="button" class="col-lg-12 btn category"  data-target="#cli01">Proximity</button>
+          <div id="cli01" >
+              <p>Latitude : <span style="color:green;font-weight:bold">{{element.latitude}}</span></p>
+              <p>Longitude : <span style="color:green;font-weight:bold">{{element.longitude}}</span></p>
+            <p>Distance in miles : <span style="color:green;font-weight:bold">{{element.distance}}</span></p>
+          </div>
+        </div>
+        <div class="col-md-12 col-lg-4">
+          <button type="button" class="col-lg-12 btn category"  data-target="#cli01">Climate</button>
+          <div id="cli01" >
+            <p>Average Max. Temp. : <span style="color:green;font-weight:bold">{{element.avgmaxtmp}}</span></p>
+            <p>Average Min. Temp. : <span style="color:green;font-weight:bold">{{element.avgmintmp}}</span></p>
+            <p>Average Temp. : <span style="color:green;font-weight:bold">{{element.avgtmp}}</span></p>
+            <p>Average Rainfall : <span style="color:green;font-weight:bold">{{element.rainfall}}</span></p>
+          </div>
+        </div>
+        <div class="col-md-12 col-lg-4">
+          <button type="button" class="col-lg-12 btn category" data-target="#cli01">Demographics</button>
+          <div id="cli01" >
+            <p>Total Population : <span style="color:green;font-weight:bold">{{element.population}}</p>
+            <button type="button" class="col-lg-12 btn category" data-toggle="collapse" data-target="#cli02{{forloop.counter}}">Population By Place of birth</button>
+            <div id="cli02{{forloop.counter}}"  class="collapse" >
+                <p>Born in US : <span style="color:green;font-weight:bold">{{element.usborn}}</span></p>
+                <p>Born in US(resident state) : <span style="color:green;font-weight:bold">{{element.usbornRes}}</span></p>
+                <p>Born in US(different state) : <span style="color:green;font-weight:bold">{{element.usbornNonres}}</span></p>
+                <p>Foreign born US Citizens : <span style="color:green;font-weight:bold">{{element.uscitforeignborn}}</span></p>
+                <p> Foreign born Non-US Citizens : <span style="color:green;font-weight:bold">{{element.nonuscitForeignBorn}}</span></p>
+
+            </div>
+            <button type="button" class="col-lg-12 btn category" data-toggle="collapse" data-target="#cli03{{forloop.counter}}">Married population</button>
+            <div id="cli03{{forloop.counter}}" class="collapse" >
+                <p>Married Males(15 years+) : <span style="color:green;font-weight:bold">{{element.marriedMales}}</span></p>
+                <p>Married Females(15 years+) : <span style="color:green;font-weight:bold">{{element.marriedFemale}}</span></p>
+              </div>
+              <button type="button" class="col-lg-12 btn category" data-toggle="collapse" data-target="#cli04{{forloop.counter}}">Education</button>
+              <div id="cli04{{forloop.counter}}" class="collapse">
+                  <p>High school grad(25 years+) : <span style="color:green;font-weight:bold">{{element.highSchoolGrad}}</span></p>
+                </div> 
+
+
+          </div>
+        </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-lg-4">
+              <button type="button" class="col-lg-12 btn category"  data-target="#cli01">Politics</button>
+              <div id="cli01" >
+                <p>Domocrats voters (Percentage) : <span style="color:green;font-weight:bold">{{element.perDem}}</span></p>
+                <p>GOP voters (Percentage) : <span style="color:green;font-weight:bold">{{element.perGOP}}</span></p>
+              </div>
+            </div>
+            <div class="col-md-12 col-lg-4">
+              <button type="button" class="col-lg-12 btn category"  data-target="#cli01">Economy</button>
+              <div id="cli01" >
+                <p>Median income : <span style="color:green;font-weight:bold">{{element.medianIncome}}</span></p>
+                <p>Mean income : <span style="color:green;font-weight:bold">{{element.meanIncome}}</span></p>
+              </div>
+            </div>
+            </div>
+            </div>
+
+       
+      <!-- /.row -->
+
+      
+      <hr>
+      {% endfor %}
+
+     
+
+      
+
+      <!-- Pagination -->
+      <!-- <ul class="pagination justify-content-center">
+        <li class="page-item">
+          <a class="page-link" href="#" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+            <span class="sr-only">Previous</span>
+          </a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href="#">1</a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href="#">2</a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href="#">3</a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href="#" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+            <span class="sr-only">Next</span>
+          </a>
+        </li>
+      </ul> -->
+
+    </div>
+    <!-- /.container -->
+
+    <!-- Footer -->
+    <footer class="py-5">
+      <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; Find My Sister City 2018</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="{% static "results-files/vendor/jquery/jquery.min.js" %}"></script>
+    <script src="{% static "results-files/vendor/bootstrap/js/bootstrap.bundle.min.js" %}"></script>
+    <script type="text/javascript">
+      var submit_button = document.getElementById("submit-button2");
+    
+         submit_button.onclick = function() { 
+        
+        document.getElementById("loading").style.display ='block';
+    
+                           
+            }; 
+    
+      </script>
+       
+        <style>
+    
+    #loading {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 100;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.5);
+        background-image: url("/static/maththinking.gif"),url("/static/processing.gif");
+      background-position: 50% ,top 25% center;
+        background-repeat: no-repeat, no-repeat;
+        padding: 0px;
+    
+    }
+      </style>
+  </form>
+</div>
+<div id="loading"></div>
+  </body>
+
+</html>
